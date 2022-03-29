@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.microsoft.maven</groupId>
+    <artifactId>java-parent-bom</artifactId>
+    <version>1.0.1</version>
+    <packaging>pom</packaging>
+    <name>Maven BOM for Microsoft Java Projects</name>
+    <description>Maven Parents for Microsoft Java Projects</description>
+    <url>https://github.com/microsoft/maven-java-parent</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Maven tool versions -->
+        <maven-compiler.version>3.8.0</maven-compiler.version>
+        <maven-source.version>3.0.1</maven-source.version>
+        <maven-javadoc.version>3.0.1</maven-javadoc.version>
+        <maven-surefire.version>2.22.1</maven-surefire.version>
+        <maven-exec.version>1.6.0</maven-exec.version>
+        <maven-assembly.version>3.1.0</maven-assembly.version>
+        <maven-eclipse.version>2.10</maven-eclipse.version>
+        <maven-gpg.version>1.6</maven-gpg.version>
+        <maven-nexus-staging.version>1.6.8</maven-nexus-staging.version>
+        <maven-checkstyle.version>3.0.0</maven-checkstyle.version>
+        <maven-spotbugs.version>3.1.6</maven-spotbugs.version>
+        <maven-build-tools.version>1.0.1</maven-build-tools.version>
+    </properties>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <url>https://github.com/Microsoft/maven-java-parent/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus-staging</id>
+            <name>Nexus Staging Repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!-- For CheckStyle / SpotBugs plugin to download build-tools jar file -->
+    
+
+    <scm>
+        <connection>scm:git:https://github.com/microsoft/maven-java-parent</connection>
+        <developerConnection>scm:git:git@github.com:microsoft/maven-java-parent</developerConnection>
+        <url>https://github.com/microsoft/maven-java-parent</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>microsoft</id>
+            <organization>Microsoft Corporation</organization>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>build-tools</module>
+        <module>java-8-parent</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg.version}</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${maven-nexus-staging.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>nexus-snapshots</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
